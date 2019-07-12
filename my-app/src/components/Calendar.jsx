@@ -2,32 +2,11 @@ import React from "react";
 import dateFns from "date-fns";
 
 class Calendar extends React.Component {
-    state = {
-        currentMonth: new Date(),
-        selectedDate: new Date()
-    };
-
-    renderHeader() {
-        const dateFormat = "MMMM YYYY";
-
+    render() {
         return (
-            <div className="header row flex-middle">
-                <div className="col col-start">
-                    <div className="icon" onClick={this.prevMonth}>chevron_left
-            </div>
-                </div>
-                <div className="col col-center">
-                    <span>
-                        {dateFns.format(this.state.currentMonth, dateFormat)}
-                    </span>
-                </div>
-                <div className="col col-end" onClick={this.nextMonth}>
-                    <div className="icon">chevron_right</div>
-                </div>
-            </div>
-        );
+            <h1>Calendar Goes Here</h1>
+        )
     }
+}
 
-    renderDays() { }
-
-    renderCells() { }
+export default Calendar;
