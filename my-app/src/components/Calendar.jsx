@@ -1,10 +1,14 @@
 import React from "react";
 import dateFns from "date-fns";
+import { Button } from "react-bootstrap";
+import { VerticalModal } from "../components/Modal";
+
 
 class Calendar extends React.Component {
     state = {
         currentMonth: new Date(),
-        selectedDate: new Date()
+        selectedDate: new Date(),
+        modalShow: false
     };
 
     renderHeader() {
@@ -72,6 +76,14 @@ class Calendar extends React.Component {
                     >
                         <span className="number">{formattedDate}</span>
                         <span className="bg">{formattedDate}</span>
+                        <br></br>
+                        <img src="./assets/images/runIcon.png" id="runIcon"
+
+                            alt="Enter Run"
+                            onClick={() => this.setState({ modalShow: true })}
+                        />
+
+
                     </div>
                 );
                 day = dateFns.addDays(day, 1);
@@ -85,7 +97,6 @@ class Calendar extends React.Component {
         }
         return <div className="body">{rows}</div>;
     }
-
 
     onDateClick = day => {
         this.setState({
@@ -105,13 +116,20 @@ class Calendar extends React.Component {
         })
     };
 
+    addTrainingRun = () => { }
+
     render() {
+        let modalClose = () => this.setState({ modalShow: false });
         return (
             <div className="calendar">
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
+                <VerticalModal
+                    show={this.state.modalShow}
+                    onHide={modalClose} />
             </div>
+
         )
     }
 }
