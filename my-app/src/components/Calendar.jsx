@@ -9,6 +9,7 @@ class Calendar extends React.Component {
         currentMonth: new Date(),
         selectedDate: new Date(),
         modalShow: false
+
     };
 
     renderHeader() {
@@ -120,18 +121,21 @@ class Calendar extends React.Component {
 
     render() {
         let modalClose = () => this.setState({ modalShow: false });
+
         return (
-            <div className="calendar">
+            <div className="calendar" >
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
                 <VerticalModal
                     show={this.state.modalShow}
                     onHide={modalClose} />
-            </div>
+
+            </div >
 
         )
     }
 }
+
 
 export default Calendar;

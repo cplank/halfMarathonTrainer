@@ -4,6 +4,29 @@ import { Modal, Button, Form } from "react-bootstrap"
 export class VerticalModal extends React.Component {
     constructor(props) {
         super(props)
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    submit(event) {
+        event.preventDefault()
+
+        let data = {
+            date: this.state.date,
+            miles: this.state.miles,
+            completed: this.state.completed,
+            crossTraining: this.state.crossTraining,
+            restDay: this.state.restDay
+        }
+    }
+
+    handleChange(event) {
+        const { name, value } = event.target;
+        console.log("HELLO FROM HANDLECHANGE", name, value)
+
+        this.setState({
+            [name]: value
+        })
     }
 
     render() {
@@ -20,7 +43,7 @@ export class VerticalModal extends React.Component {
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={this.submit}>
                         <Form.Group controlId="rest-day">
                             <Form.Label>Is today a rest day?</Form.Label>
                             <Form.Control as="select">
@@ -53,6 +76,7 @@ export class VerticalModal extends React.Component {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
+                    <button type="submit">Submit</button>
                     <Button onClick={this.props.onHide}>Close</Button>
                 </Modal.Footer>
             </Modal>

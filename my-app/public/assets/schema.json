@@ -1,0 +1,14 @@
+{
+    "raceName": "string",
+    "raceDate": "date string",
+    "raceType": "string",
+    "raceTrainingWeeks": "number",
+    "raceTrainingDetails": [
+        {
+            "date": "date string",
+            "type": "string",
+            "miles": "number",
+            "completed": "boolean"
+        }
+    ]
+}
