@@ -1,11 +1,18 @@
 import React from "react";
 import dateFns from "date-fns";
+import { Button } from "react-bootstrap";
+import { VerticalModal } from "../components/Modal";
+import update from "immutability-helper";
+
 
 class Calendar extends React.Component {
+
     state = {
         currentMonth: new Date(),
-        selectedDate: new Date()
-    };
+        selectedDate: new Date(),
+        daysInfo: {},
+        modalShow: false
+    }
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -68,11 +75,15 @@ class Calendar extends React.Component {
                                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
                             }`}
                         key={day}
-                        onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+                        onClick={() => {
+                            this.onDateClick(dateFns.parse(cloneDay));
+                            this.setState({ modalShow: true })
+                        }}
                     >
                         <span className="number">{formattedDate}</span>
                         <span className="bg">{formattedDate}</span>
-                    </div>
+
+                    </div >
                 );
                 day = dateFns.addDays(day, 1);
             }
@@ -85,7 +96,6 @@ class Calendar extends React.Component {
         }
         return <div className="body">{rows}</div>;
     }
-
 
     onDateClick = day => {
         this.setState({
@@ -105,15 +115,37 @@ class Calendar extends React.Component {
         })
     };
 
+    getModalInfo = (date, modalInfo) => {
+        let daysInfo = this.state.daysInfo;
+        let newDaysInfo = update(daysInfo, {
+            $merge: {
+                [date]: modalInfo
+            }
+        })
+        this.setState({
+            daysInfo: newDaysInfo
+        })
+    };
+
     render() {
+        let modalClose = () => this.setState({ modalShow: false });
+
         return (
-            <div className="calendar">
+            <div className="calendar" >
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
-            </div>
+                <VerticalModal
+                    date={this.state.selectedDate}
+                    show={this.state.modalShow}
+                    details={this.getModalInfo}
+                    onHide={modalClose} />
+
+            </div >
+
         )
     }
 }
+
 
 export default Calendar;
