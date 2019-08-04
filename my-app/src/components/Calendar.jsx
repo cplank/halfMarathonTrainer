@@ -2,14 +2,17 @@ import React from "react";
 import dateFns from "date-fns";
 import { Button } from "react-bootstrap";
 import { VerticalModal } from "../components/Modal";
+import update from "immutability-helper";
 
 
 class Calendar extends React.Component {
+
     state = {
         currentMonth: new Date(),
         selectedDate: new Date(),
+        daysInfo: {},
         modalShow: false
-    };
+    }
 
     renderHeader() {
         const dateFormat = "MMMM YYYY";
@@ -72,12 +75,13 @@ class Calendar extends React.Component {
                                 : dateFns.isSameDay(day, selectedDate) ? "selected" : ""
                             }`}
                         key={day}
-                        onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
-                        onClick={() => this.setState({ modalShow: true })}
+                        onClick={() => {
+                            this.onDateClick(dateFns.parse(cloneDay));
+                            this.setState({ modalShow: true })
+                        }}
                     >
                         <span className="number">{formattedDate}</span>
                         <span className="bg">{formattedDate}</span>
-
 
                     </div >
                 );
@@ -111,6 +115,18 @@ class Calendar extends React.Component {
         })
     };
 
+    getModalInfo = (date, modalInfo) => {
+        let daysInfo = this.state.daysInfo;
+        let newDaysInfo = update(daysInfo, {
+            $merge: {
+                [date]: modalInfo
+            }
+        })
+        this.setState({
+            daysInfo: newDaysInfo
+        })
+    };
+
     render() {
         let modalClose = () => this.setState({ modalShow: false });
 
@@ -120,7 +136,9 @@ class Calendar extends React.Component {
                 {this.renderDays()}
                 {this.renderCells()}
                 <VerticalModal
+                    date={this.state.selectedDate}
                     show={this.state.modalShow}
+                    details={this.getModalInfo}
                     onHide={modalClose} />
 
             </div >
