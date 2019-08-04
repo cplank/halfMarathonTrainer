@@ -9,7 +9,6 @@ class Calendar extends React.Component {
         currentMonth: new Date(),
         selectedDate: new Date(),
         modalShow: false
-
     };
 
     renderHeader() {
@@ -74,18 +73,13 @@ class Calendar extends React.Component {
                             }`}
                         key={day}
                         onClick={() => this.onDateClick(dateFns.parse(cloneDay))}
+                        onClick={() => this.setState({ modalShow: true })}
                     >
                         <span className="number">{formattedDate}</span>
                         <span className="bg">{formattedDate}</span>
-                        <br></br>
-                        <img src="./assets/images/runIcon.png" id="runIcon"
-
-                            alt="Enter Run"
-                            onClick={() => this.setState({ modalShow: true })}
-                        />
 
 
-                    </div>
+                    </div >
                 );
                 day = dateFns.addDays(day, 1);
             }
@@ -116,8 +110,6 @@ class Calendar extends React.Component {
             currentMonth: dateFns.subMonths(this.state.currentMonth, 1)
         })
     };
-
-    addTrainingRun = () => { }
 
     render() {
         let modalClose = () => this.setState({ modalShow: false });

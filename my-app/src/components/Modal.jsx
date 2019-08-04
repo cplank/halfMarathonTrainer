@@ -5,28 +5,18 @@ export class VerticalModal extends React.Component {
     constructor(props) {
         super(props)
 
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    submit(event) {
-        event.preventDefault()
-
-        let data = {
-            date: this.state.date,
-            miles: this.state.miles,
-            completed: this.state.completed,
-            crossTraining: this.state.crossTraining,
-            restDay: this.state.restDay
+        this.state = {
+            date: "",
+            miles: "",
+            completed: false,
+            crossTraining: false,
+            restDay: false
         }
     }
 
-    handleChange(event) {
-        const { name, value } = event.target;
-        console.log("HELLO FROM HANDLECHANGE", name, value)
 
-        this.setState({
-            [name]: value
-        })
+    handleChange(event) {
+        this.setState({ miles: event.target.value })
     }
 
     render() {
@@ -62,7 +52,7 @@ export class VerticalModal extends React.Component {
                         </Form.Group>
                         <Form.Group controlId="miles-run">
                             <Form.Label>Enter miles to run:</Form.Label>
-                            <Form.Control type="text" placeholder="example: 3" />
+                            <Form.Control type="text" name="miles" value={this.state.miles} onChange={this.handleChange.bind(this)} placeholder="example: 3" />
                         </Form.Group>
                         <Form-Group>
                             <Form.Check
