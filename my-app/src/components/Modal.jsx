@@ -10,10 +10,10 @@ export class VerticalModal extends React.Component {
             miles: "",
             completed: false,
             crossTraining: false,
-            restDay: false
+            restDay: false,
+            hideElements: false
         }
     }
-
 
 
     handleMiles(event) {
@@ -21,7 +21,10 @@ export class VerticalModal extends React.Component {
     }
 
     handleRest(event) {
-        this.setState({ restDay: event.target.value })
+        this.setState({
+            restDay: event.target.value,
+            hideElements: event.target.value
+        })
     }
 
     handleCross(event) {
@@ -43,8 +46,10 @@ export class VerticalModal extends React.Component {
         event.preventDefault();
     }
 
+
     render() {
         console.log('render modal: ', this.props);
+        const { hideElements } = this.state
         return (
             <Modal
                 {...this.props}
@@ -67,7 +72,7 @@ export class VerticalModal extends React.Component {
                                 <option value="false">No</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="cross-training-day">
+                        <Form.Group className={`box ${hideElements ? "hidden" : ""}`} controlId="cross-training-day">
                             <Form.Label>Cross-training today?</Form.Label>
                             <Form.Control as="select" value={this.state.value} onChange={this.handleCross.bind(this)}>
                                 <option>Select...</option>
@@ -75,13 +80,14 @@ export class VerticalModal extends React.Component {
                                 <option>No</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="miles-run">
+                        <Form.Group className="miles-run" controlId="miles-run">
                             <Form.Label>Enter miles to run:</Form.Label>
                             <Form.Control type="text" name="miles" value={this.state.miles} onChange={this.handleMiles.bind(this)} placeholder="example: 3" />
                         </Form.Group>
                         <Form-Group>
                             <Form.Check
                                 type="checkbox"
+                                className="run-complete"
                                 checked={this.state.true}
                                 onChange={this.handleCompleted.bind(this)}
                                 id="completed"
