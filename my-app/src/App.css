@@ -235,3 +235,8 @@ main {
 #runIcon {
   max-width: 60%;
 }
+
+/* Hide form elements */
+.hidden {
+  display: none;
+}
