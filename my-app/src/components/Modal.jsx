@@ -72,7 +72,7 @@ export class VerticalModal extends React.Component {
                                 <option value="false">No</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group className={`box ${hideElements ? "hidden" : ""}`} controlId="cross-training-day">
+                        <Form.Group className={`cross-train ${hideElements ? "hidden" : ""}`} controlId="cross-training-day">
                             <Form.Label>Cross-training today?</Form.Label>
                             <Form.Control as="select" value={this.state.value} onChange={this.handleCross.bind(this)}>
                                 <option>Select...</option>
@@ -80,12 +80,13 @@ export class VerticalModal extends React.Component {
                                 <option>No</option>
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group className="miles-run" controlId="miles-run">
+                        <Form.Group className={`miles-run ${hideElements ? "hidden" : ""}`} controlId="miles-run">
                             <Form.Label>Enter miles to run:</Form.Label>
                             <Form.Control type="text" name="miles" value={this.state.miles} onChange={this.handleMiles.bind(this)} placeholder="example: 3" />
                         </Form.Group>
                         <Form-Group>
                             <Form.Check
+                                className={`completed ${hideElements ? "hidden" : ""}`}
                                 type="checkbox"
                                 className="run-complete"
                                 checked={this.state.true}
