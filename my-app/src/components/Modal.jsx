@@ -21,9 +21,13 @@ export class VerticalModal extends React.Component {
     }
 
     handleRest(event) {
+        let rest = false
+        if (event.target.value === "true") {
+            rest = true
+        }
         this.setState({
-            restDay: event.target.value,
-            hideElements: event.target.value
+            restDay: rest,
+            hideElements: rest
         })
     }
 
