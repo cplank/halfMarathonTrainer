@@ -4,14 +4,15 @@ import { Modal, Button, Form } from "react-bootstrap"
 export class VerticalModal extends React.Component {
     constructor(props) {
         super(props)
-
+        console.log(this.props.dayData)
         this.state = {
             date: this.props.date,
             miles: "",
             completed: false,
-            crossTraining: false,
-            restDay: false,
-            hideElements: false
+            crossTraining: undefined,
+            restDay: undefined,
+            hideElements: false,
+            ...this.props.dayData
         }
     }
 
@@ -70,18 +71,18 @@ export class VerticalModal extends React.Component {
                     <Form>
                         <Form.Group controlId="rest-day">
                             <Form.Label>Is today a rest day?</Form.Label>
-                            <Form.Control as="select" value={this.state.value} onChange={this.handleRest.bind(this)}>
+                            <Form.Control as="select" value={this.state.restDay} onChange={this.handleRest.bind(this)}>
                                 <option value="">Select...</option>
-                                <option value="true">Yes</option>
-                                <option value="false">No</option>
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group className={`cross-train ${hideElements ? "hidden" : ""}`} controlId="cross-training-day">
                             <Form.Label>Cross-training today?</Form.Label>
-                            <Form.Control as="select" value={this.state.value} onChange={this.handleCross.bind(this)}>
+                            <Form.Control as="select" value={this.state.crossTraining} onChange={this.handleCross.bind(this)}>
                                 <option>Select...</option>
-                                <option>Yes</option>
-                                <option>No</option>
+                                <option value={true}>Yes</option>
+                                <option value={false}>No</option>
                             </Form.Control>
                         </Form.Group>
                         <Form.Group className={`miles-run ${hideElements ? "hidden" : ""}`} controlId="miles-run">

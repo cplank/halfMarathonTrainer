@@ -135,11 +135,13 @@ class Calendar extends React.Component {
                 {this.renderHeader()}
                 {this.renderDays()}
                 {this.renderCells()}
-                <VerticalModal
+
+                {this.state.modalShow ? (<VerticalModal
                     date={this.state.selectedDate}
+                    dayData={this.state.daysInfo[this.state.selectedDate]}
                     show={this.state.modalShow}
                     details={this.getModalInfo}
-                    onHide={modalClose} />
+                    onHide={modalClose} />) : (<div></div>)}
 
             </div >
 
